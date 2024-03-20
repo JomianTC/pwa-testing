@@ -6,9 +6,14 @@ let register = "";
 const subscription = async () => {
 	
 	console.log( "Registrando el Service Worker" );
-	register = await navigator.serviceWorker.register( "pwa-testing/worker.js", {
-		scope: "/"
+	register = await navigator.serviceWorker.register( "worker.js" )
+	.then(registration => {
+		console.log('Service Worker registrado correctamente.', registration);
+	})
+	.catch(error => {
+		console.error('Error al registrar el Service Worker:', error);
 	});
+
 
 	console.log( "Service Worker Registrado" );
 };
