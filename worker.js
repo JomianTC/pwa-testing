@@ -15,7 +15,7 @@ self.addEventListener( "push", event => {
 	console.log( "Notificacion Recibida" );
 	self.registration.showNotification( data.title, {
 		badge: imageNotification,
-		image: imageNotification,
+		icon: imageNotification,
 		body: data.message,
 		vibrate: [ 50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600 ]
 	});
