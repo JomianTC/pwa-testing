@@ -6,7 +6,7 @@ let register = "";
 const subscription = async () => {
 	
 	console.log( "Registrando el Service Worker" );
-	register = await navigator.serviceWorker.register( "./worker.js", {
+	register = await navigator.serviceWorker.register( "worker.js", {
 		scope: "/"
 	});
 
