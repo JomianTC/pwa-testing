@@ -42,7 +42,7 @@ boton.addEventListener("click", async () => {
         console.log("Subscripcion creada");
 
         // Enviar la suscripción al servidor
-        const response = await fetch("http://localhost:8080/api/notification/subscription/" + procedureID, {
+        const response = await fetch("https://km4vvlnd-8080.usw3.devtunnels.ms/api/notification/subscription/" + procedureID, {
             method: "POST",
             body: JSON.stringify(subscription),
             headers: {
