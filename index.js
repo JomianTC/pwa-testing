@@ -173,3 +173,6 @@ btnProcedureThree.addEventListener( "click", async () => {
 	}
 });
 
+// http://localhost:8080/api/procedure/813df822-7c90-4bcd-a31b-170d86e33f8a
+// http://localhost:8080/api/procedure/04400c82-d698-47ef-8aec-4128c5f01333
+// http://localhost:8080/api/procedure/17cab38c-20ff-432c-ba33-933e94186d40

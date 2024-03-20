@@ -11,7 +11,7 @@ self.addEventListener( "push", event => {
 
 	console.log( "Notificacion Recibida" );
 	self.registration.showNotification( data.title, {
-		icon: imageNotification,
+		badge: imageNotification,
 		body: data.message
 	});
 });
