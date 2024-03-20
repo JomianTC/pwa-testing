@@ -4,8 +4,6 @@ const PUBLIC_VAPID_KEY =
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyc3VAYWx1bW5vLmlwbi5teCIsImlhdCI6MTcwOTI1MTk4OCwiZXhwIjoxNzQxNjUxOTg4fQ.w904BqhazL9h2ynBkJKKxx2uoLUCUo_nyd5vrAGNlKA";			
 let register = "";
 
-let register;
-
 const subscription = async () => {
     console.log("Registrando el Service Worker");
     register = await navigator.serviceWorker.register("worker.js")
