@@ -261,7 +261,7 @@ deleteAll.addEventListener( "click", async () => {
 
 	try {
 		
-		const response = await fetch( backendURL + "/subscription/delete", {
+		const response = await fetch( backendURL + "/subscription/delete/all", {
 			method: "DELETE",
 			body: JSON.stringify( subscription ),
 			headers: {
