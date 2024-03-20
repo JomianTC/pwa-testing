@@ -3,6 +3,9 @@ console.log( "Service Worker Works" );
 const imageNotification = 
 	"https://upload.wikimedia.org/wikipedia/commons/3/37/Arc_%28browser%29_logo.svg";
 
+const soundNotification = 
+	"https://pixabay.com/es/sound-effects/short-success-sound-glockenspiel-treasure-video-game-6346/";
+
 self.addEventListener( "push", event => {
 
 	console.log( "Notificacion Recibida" );
@@ -12,6 +15,7 @@ self.addEventListener( "push", event => {
 	console.log( "Notificacion Recibida" );
 	self.registration.showNotification( data.title, {
 		badge: imageNotification,
-		body: data.message
+		body: data.message,
+		sound: soundNotification
 	});
 });
