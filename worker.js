@@ -16,6 +16,6 @@ self.addEventListener( "push", event => {
 	self.registration.showNotification( data.title, {
 		badge: imageNotification,
 		body: data.message,
-		sound: soundNotification
+		vibrate: [ 50,100,50,100,50,100,400,100,300,100,350,50,200,100,100,50,600 ]
 	});
 });
