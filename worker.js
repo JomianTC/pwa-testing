@@ -4,7 +4,7 @@ const imageNotification =
 	"https://upload.wikimedia.org/wikipedia/commons/3/37/Arc_%28browser%29_logo.svg";
 
 const soundNotification = 
-	"https://pixabay.com/es/sound-effects/short-success-sound-glockenspiel-treasure-video-game-6346/";
+	"https://cdn.pixabay.com/audio/2021/08/04/audio_bb630cc098.mp3";
 
 self.addEventListener( "push", event => {
 
