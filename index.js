@@ -275,6 +275,9 @@ deleteAll.addEventListener( "click", async () => {
 		const data = await response.json();
 		console.log( data.message );
 
+		subscription.unsubscribe()
+		.then( () => console.log( "Subscripcion eliminada" ) );
+
 	} catch ( error ) {
 		console.error( "Error al eliminar la suscripción:", error );
 		alert( "Error al eliminar la suscripción: " + error.message );
