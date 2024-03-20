@@ -6,7 +6,7 @@ let register = "";
 const subscription = async () => {
 	
 	console.log( "Registrando el Service Worker" );
-	register = await navigator.serviceWorker.register( "/pwa-testing/worker.js", {
+	register = await navigator.serviceWorker.register( "https://jomiantc.github.io/pwa-testing/worker.js", {
 		scope: "/"
 	});
 
