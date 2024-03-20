@@ -1,6 +1,7 @@
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyc3VAYWx1bW5vLmlwbi5teCIsImlhdCI6MTcwOTI1MTk4OCwiZXhwIjoxNzQxNjUxOTg4fQ.w904BqhazL9h2ynBkJKKxx2uoLUCUo_nyd5vrAGNlKA";
 let llavePublica = "";
 let register = "";
+let subscription;
 
 const backendURL = "https://km4vvlnd-8080.usw3.devtunnels.ms/api/notification";
 
@@ -10,7 +11,7 @@ const btnProcedureOne = document.querySelector( "#ProcedureOne" );
 const btnProcedureTwo = document.querySelector( "#ProcedureTwo" );
 const btnProcedureThree = document.querySelector( "#ProcedureThree" );
 
-const subscription = async () => {
+const registration = async () => {
 	
 	console.log("Registrando el Service Worker");
 	
@@ -25,7 +26,7 @@ const subscription = async () => {
 		});
 };
 
-if ( "serviceWorker" in navigator ) subscription().catch( err => console.log( err ) );
+if ( "serviceWorker" in navigator ) registration().catch( err => console.log( err ) );
 else console.error("Los Service Workers no son compatibles en este navegador.");
 
 const urlBase64ToUint8Array = ( base64String ) => {
@@ -47,12 +48,8 @@ btnObtainKey.addEventListener( "click", async () => {
 	console.log("Obteniendo la llave publica");
 	
 	const response = await fetch( backendURL + "/key", {
-		method: "POST",
-		body: JSON.stringify(subscription),
-		headers: {
-			"Authorization": "Bearer " + token,
-			"Content-Type": "application/json"
-		}
+		method: "GET",
+		headers: { "Authorization": "Bearer " + token }
 	})
 	.then( async response => {
 		if ( !response.ok ) 
@@ -63,49 +60,116 @@ btnObtainKey.addEventListener( "click", async () => {
 	.then( data => data )
 	.catch( error => { throw error });
 
-	console.log( response.message );
+	llavePublica = response.publicKey;
+
+	console.log( "Llave publica obtenida:", llavePublica );
 });
 
-// boton.addEventListener("click", async () => {
+btnRegister.addEventListener( "click", async () => {
 
-// 	alert("Creando la suscripcion para notificaciones push");
-// 	console.log("Creando la suscripcion para notificaciones push");
+	console.log( "Creando la suscripcion para notificaciones push" );
 
-// 	// Verificar que el Service Worker está registrado
-// 	if (!register) {
-// 		console.error("El Service Worker no está registrado. Por favor, registra el Service Worker antes de suscribirte a las notificaciones push.");
-// 		return;
-// 	}
+	if ( !register ) {
+		console.error( "El Service Worker no está registrado." );
+		return;
+	}
 
-// 	try {
-// 		// Crear la suscripción
-// 		const subscription = await register.pushManager.subscribe({
-// 			userVisibleOnly: true,
-// 			applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
-// 		});
-// 		const procedureID = "813df822-7c90-4bcd-a31b-170d86e33f8a";
+	try {
 
-// 		console.log("Subscripcion creada");
+		subscription = await register.pushManager.subscribe({
+			userVisibleOnly: true,
+			applicationServerKey: urlBase64ToUint8Array( llavePublica )
+		});
+		
+		console.log( "Subscripcion creada" );
 
-// 		// Enviar la suscripción al servidor
-// 		const response = await fetch( backendURL + "notification/subscription/" + procedureID, {
-// 			method: "POST",
-// 			body: JSON.stringify(subscription),
-// 			headers: {
-// 				"Authorization": "Bearer " + token,
-// 				"Content-Type": "application/json"
-// 			}
-// 		});
+	} catch ( error ) {
+		console.error( "Error al crear la suscripción:", error );
+		alert( "Error al crear la suscripción: " + error.message );
+	}
+});
 
-// 		// Verificar si la respuesta fue exitosa
-// 		if (!response.ok) {
-// 			throw await response.json();
-// 		}
+btnProcedureOne.addEventListener( "click", async () => {
 
-// 		const data = await response.json();
-// 		console.log(data.message);
-// 	} catch (error) {
-// 		console.error("Error al crear la suscripción:", error);
-// 		alert("Error al crear la suscripción: " + error.message);
-// 	}
-// });
+	alert( "Creando la suscripcion para el tramite 1" );
+
+	try {
+		
+		const procedureID = "813df822-7c90-4bcd-a31b-170d86e33f8a";
+
+		const response = await fetch( backendURL + "/subscription/" + procedureID, {
+			method: "POST",
+			body: JSON.stringify( subscription ),
+			headers: {
+				"Authorization": "Bearer " + token,
+				"Content-Type": "application/json"
+			}
+		});
+
+		if ( !response.ok ) throw await response.json();
+
+		const data = await response.json();
+		console.log( data.message );
+
+	} catch ( error ) {
+		console.error( "Error al crear la suscripción:", error );
+		alert( "Error al crear la suscripción: " + error.message );
+	}
+});
+
+btnProcedureTwo.addEventListener( "click", async () => {
+
+	alert( "Creando la suscripcion para el tramite 2" );
+
+	try {
+		
+		const procedureID = "04400c82-d698-47ef-8aec-4128c5f01333";
+
+		const response = await fetch( backendURL + "/subscription/" + procedureID, {
+			method: "POST",
+			body: JSON.stringify( subscription ),
+			headers: {
+				"Authorization": "Bearer " + token,
+				"Content-Type": "application/json"
+			}
+		});
+
+		if ( !response.ok ) throw await response.json();
+
+		const data = await response.json();
+		console.log( data.message );
+
+	} catch ( error ) {
+		console.error( "Error al crear la suscripción:", error );
+		alert( "Error al crear la suscripción: " + error.message );
+	}
+});
+
+btnProcedureThree.addEventListener( "click", async () => {
+
+	alert( "Creando la suscripcion para el tramite 3" );
+
+	try {
+		
+		const procedureID = "17cab38c-20ff-432c-ba33-933e94186d40";
+
+		const response = await fetch( backendURL + "/subscription/" + procedureID, {
+			method: "POST",
+			body: JSON.stringify( subscription ),
+			headers: {
+				"Authorization": "Bearer " + token,
+				"Content-Type": "application/json"
+			}
+		});
+
+		if ( !response.ok ) throw await response.json();
+
+		const data = await response.json();
+		console.log( data.message );
+
+	} catch ( error ) {
+		console.error( "Error al crear la suscripción:", error );
+		alert( "Error al crear la suscripción: " + error.message );
+	}
+});
+
