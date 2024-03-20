@@ -1,74 +1,76 @@
 const PUBLIC_VAPID_KEY =
 	"BEd5LmpqRXdR6X2GCnZ4pNBci-bPLZO9ZWjSCI_c4O0moDWu2FKnCzZfsgpjklVdIO4bPl7jkpAphwYTHTdGEH8";
 
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyc3VAYWx1bW5vLmlwbi5teCIsImlhdCI6MTcwOTI1MTk4OCwiZXhwIjoxNzQxNjUxOTg4fQ.w904BqhazL9h2ynBkJKKxx2uoLUCUo_nyd5vrAGNlKA";			
 let register = "";
 
+let register;
+
 const subscription = async () => {
-	
-	console.log( "Registrando el Service Worker" );
-	register = await navigator.serviceWorker.register( "worker.js" )
-	.then(registration => {
-		console.log('Service Worker registrado correctamente.', registration);
-	})
-	.catch(error => {
-		console.error('Error al registrar el Service Worker:', error);
-	});
+    console.log("Registrando el Service Worker");
+    register = await navigator.serviceWorker.register("worker.js")
+        .then(registration => {
+            console.log('Service Worker registrado correctamente.', registration);
+            return registration;
+        })
+        .catch(error => {
+            console.error('Error al registrar el Service Worker:', error);
+            throw error; // Lanzamos el error para que sea capturado por el catch externo
+        });
 
-
-	console.log( "Service Worker Registrado" );
+    console.log("Service Worker Registrado");
 };
 
-const urlBase64ToUint8Array = ( base64String ) => {
+const boton = document.querySelector("#boton");
 
-	const padding = "=".repeat(( 4 - ( base64String.length % 4 )) % 4 );
-	const base64 = ( base64String + padding ).replace( /-/g, "+" ).replace( /_/g, "/" );
+boton.addEventListener("click", async () => {
+    alert("Creando la suscripcion para notificaciones push");
+    console.log("Creando la suscripcion para notificaciones push");
 
-	const rawData = window.atob( base64 );
-	const outputArray = new Uint8Array( rawData.length );
+    // Verificar que el Service Worker está registrado
+    if (!register) {
+        console.error("El Service Worker no está registrado. Por favor, registra el Service Worker antes de suscribirte a las notificaciones push.");
+        return;
+    }
 
-	for ( let i = 0; i < rawData.length; ++i )
-		outputArray[ i ] = rawData.charCodeAt( i );
-	
-	return outputArray;
-}
+    try {
+        // Crear la suscripción
+        const subscription = await register.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+        });
+        const procedureID = "813df822-7c90-4bcd-a31b-170d86e33f8a";
 
-const boton = document.querySelector( "#boton" );
+        console.log("Subscripcion creada");
 
-boton.addEventListener( "click", async () => {
+        // Enviar la suscripción al servidor
+        const response = await fetch("api/notification/subscription/" + procedureID, {
+            method: "POST",
+            body: JSON.stringify(subscription),
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            }
+        });
 
-	alert( "Creando la suscripcion para notificaciones push" );
+        // Verificar si la respuesta fue exitosa
+        if (!response.ok) {
+            throw await response.json();
+        }
 
-	console.log( "Creando la suscripcion para notificaciones push" );
-	const subscription = await register.pushManager.subscribe({
-		userVisibleOnly: true,
-		applicationServerKey: urlBase64ToUint8Array( PUBLIC_VAPID_KEY )
-	});
-	const procedureID = "813df822-7c90-4bcd-a31b-170d86e33f8a";
-
-
-	console.log( "Subscripcion creada" );
-
-	const response = await fetch( "api/notification/subscription/" + procedureID, {
-		method: "POST",
-		body: JSON.stringify( subscription ),
-		headers: {
-			"Authorization": "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyc3VAYWx1bW5vLmlwbi5teCIsImlhdCI6MTcwOTI1MTk4OCwiZXhwIjoxNzQxNjUxOTg4fQ.w904BqhazL9h2ynBkJKKxx2uoLUCUo_nyd5vrAGNlKA",
-			"Content-Type": "application/json"
-		}
-	})
-	.then( async response => {
-		if ( !response.ok ) 
-			throw await response.json()
-			.then( data => { throw data; });
-		return response.json();
-	})
-	.then( data => data)
-	.catch( error => { throw error });
-
-	console.log( response.message );
-	console.log( "Subscripcion creada" );
+        const data = await response.json();
+        console.log(data.message);
+    } catch (error) {
+        console.error("Error al crear la suscripción:", error);
+        alert("Error al crear la suscripción: " + error.message);
+    }
 });
 
-// Verificacion del service Worker
-if ( "serviceWorker" in navigator )
-	subscription().catch( err => console.log( err ) );
+// Verificación del Service Worker
+if ("serviceWorker" in navigator) {
+    subscription().catch(err => console.log(err));
+} else {
+    console.error("Los Service Workers no son compatibles en este navegador.");
+}
+
+console.log("Service Worker Works");
