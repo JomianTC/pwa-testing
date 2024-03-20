@@ -178,7 +178,7 @@ btnProcedureThree.addEventListener( "click", async () => {
 
 deleteProcedureOne.addEventListener( "click", async () => {
 
-	alert( "Creando la suscripcion para el tramite 1" );
+	alert( "Eliminando la suscripcion para el tramite 1" );
 
 	try {
 		
@@ -204,7 +204,7 @@ deleteProcedureOne.addEventListener( "click", async () => {
 
 deleteProcedureTwo.addEventListener( "click", async () => {
 
-	alert( "Creando la suscripcion para el tramite 2" );
+	alert( "Eliminando la suscripcion para el tramite 2" );
 
 	try {
 		
@@ -230,7 +230,7 @@ deleteProcedureTwo.addEventListener( "click", async () => {
 
 deleteProcedureThree.addEventListener( "click", async () => {
 
-	alert( "Creando la suscripcion para el tramite 3" );
+	alert( "Eliminando la suscripcion para el tramite 3" );
 
 	try {
 		
