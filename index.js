@@ -13,6 +13,7 @@ const btnProcedureThree = document.querySelector( "#ProcedureThree" );
 const deleteProcedureOne = document.querySelector( "#DeleteProcedureOne" );
 const deleteProcedureTwo = document.querySelector( "#DeleteProcedureTwo" );
 const deleteProcedureThree = document.querySelector( "#DeleteProcedureThree" );
+const deleteAll = document.querySelector( "#DeleteAll" );
 
 const registration = async () => {
 	
@@ -240,6 +241,32 @@ deleteProcedureThree.addEventListener( "click", async () => {
 			method: "DELETE",
 			headers: {
 				"Authorization": "Bearer " + token,
+			}
+		});
+
+		if ( !response.ok ) throw await response.json();
+
+		const data = await response.json();
+		console.log( data.message );
+
+	} catch ( error ) {
+		console.error( "Error al eliminar la suscripción:", error );
+		alert( "Error al eliminar la suscripción: " + error.message );
+	}
+});
+
+deleteAll.addEventListener( "click", async () => {
+
+	alert( "Eliminando la suscripcion del worker" );
+
+	try {
+		
+		const response = await fetch( backendURL + "/subscription/delete", {
+			method: "DELETE",
+			body: JSON.stringify( subscription ),
+			headers: {
+				"Authorization": "Bearer " + token,
+				"Content-Type": "application/json"
 			}
 		});
 
