@@ -12,7 +12,6 @@ self.addEventListener( "push", event => {
 
 	const data = event.data.json();
 
-	console.log( "Notificacion Recibida" );
 	self.registration.showNotification( data.title, {
 		badge: imageNotification,
 		icon: imageNotification,

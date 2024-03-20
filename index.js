@@ -10,6 +10,9 @@ const btnRegister = document.querySelector( "#Register" );
 const btnProcedureOne = document.querySelector( "#ProcedureOne" );
 const btnProcedureTwo = document.querySelector( "#ProcedureTwo" );
 const btnProcedureThree = document.querySelector( "#ProcedureThree" );
+const deleteProcedureOne = document.querySelector( "#DeleteProcedureOne" );
+const deleteProcedureTwo = document.querySelector( "#DeleteProcedureTwo" );
+const deleteProcedureThree = document.querySelector( "#DeleteProcedureThree" );
 
 const registration = async () => {
 	
@@ -170,6 +173,84 @@ btnProcedureThree.addEventListener( "click", async () => {
 	} catch ( error ) {
 		console.error( "Error al crear la suscripción:", error );
 		alert( "Error al crear la suscripción: " + error.message );
+	}
+});
+
+deleteProcedureOne.addEventListener( "click", async () => {
+
+	alert( "Creando la suscripcion para el tramite 1" );
+
+	try {
+		
+		const procedureID = "813df822-7c90-4bcd-a31b-170d86e33f8a";
+
+		const response = await fetch( backendURL + "/subscription/" + procedureID, {
+			method: "DELETE",
+			headers: {
+				"Authorization": "Bearer " + token,
+			}
+		});
+
+		if ( !response.ok ) throw await response.json();
+
+		const data = await response.json();
+		console.log( data.message );
+
+	} catch ( error ) {
+		console.error( "Error al eliminar la suscripción:", error );
+		alert( "Error al eliminar la suscripción: " + error.message );
+	}
+});
+
+deleteProcedureTwo.addEventListener( "click", async () => {
+
+	alert( "Creando la suscripcion para el tramite 2" );
+
+	try {
+		
+		const procedureID = "04400c82-d698-47ef-8aec-4128c5f01333";
+
+		const response = await fetch( backendURL + "/subscription/" + procedureID, {
+			method: "DELETE",
+			headers: {
+				"Authorization": "Bearer " + token,
+			}
+		});
+
+		if ( !response.ok ) throw await response.json();
+
+		const data = await response.json();
+		console.log( data.message );
+
+	} catch ( error ) {
+		console.error( "Error al eliminar la suscripción:", error );
+		alert( "Error al eliminar la suscripción: " + error.message );
+	}
+});
+
+deleteProcedureThree.addEventListener( "click", async () => {
+
+	alert( "Creando la suscripcion para el tramite 3" );
+
+	try {
+		
+		const procedureID = "17cab38c-20ff-432c-ba33-933e94186d40";
+
+		const response = await fetch( backendURL + "/subscription/" + procedureID, {
+			method: "DELETE",
+			headers: {
+				"Authorization": "Bearer " + token,
+			}
+		});
+
+		if ( !response.ok ) throw await response.json();
+
+		const data = await response.json();
+		console.log( data.message );
+
+	} catch ( error ) {
+		console.error( "Error al eliminar la suscripción:", error );
+		alert( "Error al eliminar la suscripción: " + error.message );
 	}
 });
 
