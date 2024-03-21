@@ -28,6 +28,65 @@ const registration = async () => {
 			console.error( "Error al registrar el Service Worker:", error );
 			throw error;
 		});
+
+	console.log("Obteniendo la llave publica");
+	
+	const response = await fetch( backendURL + "/key", {
+		method: "GET",
+		headers: { "Authorization": "Bearer " + token }
+	})
+	.then( async response => {
+		if ( !response.ok ) 
+			throw await response.json()
+			.then( data => { throw data; });
+		return response.json();
+	})
+	.then( data => data )
+	.catch( error => { throw error });
+
+	llavePublica = response.publicKey;
+
+	console.log( "Llave publica obtenida:", llavePublica );
+
+	console.log( "Creando la suscripcion para notificaciones push" );
+
+	if ( !register ) {
+		console.error( "El Service Worker no está registrado." );
+		return;
+	}
+
+	try {
+
+		subscription = await register.pushManager.subscribe({
+			userVisibleOnly: true,
+			applicationServerKey: urlBase64ToUint8Array( llavePublica )
+		});
+		
+		console.log( "Subscripcion creada" );
+
+		const response = await fetch( backendURL + "/checkDevice", {
+			method: "POST",
+			body: JSON.stringify( subscription ),
+			headers: {
+				"Authorization": "Bearer " + token,
+				"Content-Type": "application/json"
+			}
+		})
+		.then( async response => {
+			if ( !response.ok ) 
+				throw await response.json()
+				.then( data => { throw data; });
+			return response.json();
+		})
+		.then( data => data )
+		.catch( error => { throw error });
+
+		console.log( response.message );
+
+	} catch ( error ) {
+		console.error( "Error al crear la suscripción:", error );
+		alert( "Error al crear la suscripción: " + error.message );
+	}
 };
 
 if ( "serviceWorker" in navigator ) registration().catch( err => console.log( err ) );
