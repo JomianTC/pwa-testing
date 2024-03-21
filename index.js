@@ -89,7 +89,11 @@ btnRegister.addEventListener( "click", async () => {
 
 		const response = await fetch( backendURL + "/checkDevice", {
 			method: "POST",
-			headers: { "Authorization": "Bearer " + token }
+			body: JSON.stringify( subscription ),
+			headers: {
+				"Authorization": "Bearer " + token,
+				"Content-Type": "application/json"
+			}
 		})
 		.then( async response => {
 			if ( !response.ok ) 
