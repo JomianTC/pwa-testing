@@ -28,19 +28,6 @@ const registration = async () => {
 			console.error( "Error al registrar el Service Worker:", error );
 			throw error;
 		});
-
-	const response = await fetch( backendURL + "/checkDevice", {
-		method: "POST",
-		headers: { "Authorization": "Bearer " + token }
-	})
-	.then( async response => {
-		if ( !response.ok ) 
-			throw await response.json()
-			.then( data => { throw data; });
-		return response.json();
-	})
-	.then( data => data )
-	.catch( error => { throw error });
 };
 
 if ( "serviceWorker" in navigator ) registration().catch( err => console.log( err ) );
@@ -99,6 +86,21 @@ btnRegister.addEventListener( "click", async () => {
 		});
 		
 		console.log( "Subscripcion creada" );
+
+		const response = await fetch( backendURL + "/checkDevice", {
+			method: "POST",
+			headers: { "Authorization": "Bearer " + token }
+		})
+		.then( async response => {
+			if ( !response.ok ) 
+				throw await response.json()
+				.then( data => { throw data; });
+			return response.json();
+		})
+		.then( data => data )
+		.catch( error => { throw error });
+
+		console.log( response.message );
 
 	} catch ( error ) {
 		console.error( "Error al crear la suscripción:", error );
