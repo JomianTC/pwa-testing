@@ -50,7 +50,7 @@ const registration = async () => {
 		throw error
 	});
 
-	llavePublica = response.publicKey;
+	llavePublica = response.llave_publica;
 
 	console.log( "Llave publica obtenida:", llavePublica );
 
