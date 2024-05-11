@@ -1,9 +1,9 @@
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyc3VAYWx1bW5vLmlwbi5teCIsImlhdCI6MTcwOTI1MTk4OCwiZXhwIjoxNzQxNjUxOTg4fQ.w904BqhazL9h2ynBkJKKxx2uoLUCUo_nyd5vrAGNlKA";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyc3U5OTk5OTk5OTk5QGFsdW1uby5pcG4ubXgiLCJpYXQiOjE3MTU0NjY4NzEsImV4cCI6MjA3NTQ2MzI3MX0.OFU3-qnL4V6rXbzTPQ7x43XM1MGU8bomLNJCrW80xqg";
 let llavePublica = "";
 let register = "";
 let subscription;
 
-const backendURL = "https://km4vvlnd-8080.usw3.devtunnels.ms/api/notification";
+const backendURL = "https://31nkm0vc-8080.usw3.devtunnels.ms/api/notification";
 
 const btnObtainKey = document.querySelector( "#ObtainKey" );
 const btnRegister = document.querySelector( "#Register" );
