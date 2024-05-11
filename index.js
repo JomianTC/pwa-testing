@@ -87,11 +87,11 @@ const registration = async () => {
 		.then( data => data )
 		.catch( error => { throw error });
 
-		console.log( response.message );
+		console.log( response.mensaje );
 
 	} catch ( error ) {
 		console.error( "Error al crear la suscripción:", error );
-		alert( "Error al crear la suscripción: " + error.message );
+		alert( "Error al crear la suscripción: " + error.mensaje );
 	}
 };
 
@@ -169,11 +169,11 @@ btnRegister.addEventListener( "click", async () => {
 		.then( data => data )
 		.catch( error => { throw error });
 
-		console.log( response.message );
+		console.log( response.mensaje );
 
 	} catch ( error ) {
 		console.error( "Error al crear la suscripción:", error );
-		alert( "Error al crear la suscripción: " + error.message );
+		alert( "Error al crear la suscripción: " + error.mensaje );
 	}
 });
 
@@ -197,11 +197,11 @@ btnProcedureOne.addEventListener( "click", async () => {
 		if ( !response.ok ) throw await response.json();
 
 		const data = await response.json();
-		console.log( data.message );
+		console.log( data.mensaje );
 
 	} catch ( error ) {
 		console.error( "Error al crear la suscripción:", error );
-		alert( "Error al crear la suscripción: " + error.message );
+		alert( "Error al crear la suscripción: " + error.mensaje );
 	}
 });
 
@@ -225,11 +225,11 @@ btnProcedureTwo.addEventListener( "click", async () => {
 		if ( !response.ok ) throw await response.json();
 
 		const data = await response.json();
-		console.log( data.message );
+		console.log( data.mensaje );
 
 	} catch ( error ) {
 		console.error( "Error al crear la suscripción:", error );
-		alert( "Error al crear la suscripción: " + error.message );
+		alert( "Error al crear la suscripción: " + error.mensaje );
 	}
 });
 
@@ -253,11 +253,11 @@ btnProcedureThree.addEventListener( "click", async () => {
 		if ( !response.ok ) throw await response.json();
 
 		const data = await response.json();
-		console.log( data.message );
+		console.log( data.mensaje );
 
 	} catch ( error ) {
 		console.error( "Error al crear la suscripción:", error );
-		alert( "Error al crear la suscripción: " + error.message );
+		alert( "Error al crear la suscripción: " + error.mensaje );
 	}
 });
 
@@ -279,11 +279,11 @@ deleteProcedureOne.addEventListener( "click", async () => {
 		if ( !response.ok ) throw await response.json();
 
 		const data = await response.json();
-		console.log( data.message );
+		console.log( data.mensaje );
 
 	} catch ( error ) {
 		console.error( "Error al eliminar la suscripción:", error );
-		alert( "Error al eliminar la suscripción: " + error.message );
+		alert( "Error al eliminar la suscripción: " + error.mensaje );
 	}
 });
 
@@ -305,11 +305,11 @@ deleteProcedureTwo.addEventListener( "click", async () => {
 		if ( !response.ok ) throw await response.json();
 
 		const data = await response.json();
-		console.log( data.message );
+		console.log( data.mensaje );
 
 	} catch ( error ) {
 		console.error( "Error al eliminar la suscripción:", error );
-		alert( "Error al eliminar la suscripción: " + error.message );
+		alert( "Error al eliminar la suscripción: " + error.mensaje );
 	}
 });
 
@@ -331,11 +331,11 @@ deleteProcedureThree.addEventListener( "click", async () => {
 		if ( !response.ok ) throw await response.json();
 
 		const data = await response.json();
-		console.log( data.message );
+		console.log( data.mensaje );
 
 	} catch ( error ) {
 		console.error( "Error al eliminar la suscripción:", error );
-		alert( "Error al eliminar la suscripción: " + error.message );
+		alert( "Error al eliminar la suscripción: " + error.mensaje );
 	}
 });
 
@@ -357,14 +357,14 @@ deleteAll.addEventListener( "click", async () => {
 		if ( !response.ok ) throw await response.json();
 
 		const data = await response.json();
-		console.log( data.message );
+		console.log( data.mensaje );
 
 		subscription.unsubscribe()
 		.then( () => console.log( "Subscripcion eliminada" ) );
 
 	} catch ( error ) {
 		console.error( "Error al eliminar la suscripción:", error );
-		alert( "Error al eliminar la suscripción: " + error.message );
+		alert( "Error al eliminar la suscripción: " + error.mensaje );
 	}
 });
 
