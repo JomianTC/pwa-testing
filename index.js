@@ -41,8 +41,14 @@ const registration = async () => {
 			.then( data => { throw data; });
 		return response.json();
 	})
-	.then( data => data )
-	.catch( error => { throw error });
+	.then( data => {
+		console.log( data );
+		return data;
+	} )
+	.catch( error => { 
+		console.log( error );
+		throw error
+	});
 
 	llavePublica = response.publicKey;
 
